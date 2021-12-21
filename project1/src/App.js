@@ -1,60 +1,56 @@
-import React from 'react'
-import './App.css'
+import React, { useState } from 'react'
+
 const App = () => {
- 
-  // Exercice 1.5
-  const course = {
-    name: 'Half Stack application development',
-    parts: [
-      {
-        name: 'Fundamentals of React',
-        exercises: 10
-      },
-      {
-        name: 'Using props to pass data',
-        exercises: 7
-      },
-      {
-        name: 'State of a component',
-        exercises: 14
-      }
-    ]
-  }
-  
-  console.log(course.parts[0].name);
+  // save clicks of each button to its own state
+  const [good, setGood] = useState(0)
+  const [neutral, setNeutral] = useState(0)
+  const [bad, setBad] = useState(0)
+
+const goodClickHandler=()=>{
+  setGood(good+1)
+}
+const neutralClickHandler=()=>{
+  setNeutral(neutral+1)
+}
+const badClickHandler=()=>{
+  setBad(bad+1)
+}
+
+let all = good+ bad + neutral;
+let average= all/3;
+let positive= (good / neutral)*100
 
   return (
-    <div className='app'>
-      <Header course={course.name} />
-      <Contents topic={course.parts[0].name} />
-      <Contents topic={course.parts[1].name} />
-      <Contents topic={course.parts[2].name} />
-      <Total total1={course.parts[0].exercises} total2={course.parts[1].exercises} total3={course.parts[2].exercises}/>
-    </div>
-  )
-}
-
-const Header =({course})=>{
-  return(
     <div>
-      <h1>{course}</h1>
-    </div>
-  )
-}
-const Contents =({ topic})=>{
-  return(
-    <div>
-      <p>{topic} </p>
-    </div>
-  )
-}
-const Total =({total1, total2, total3})=>{
-  return(
-    <div>
-      <h4>The total exeecises are</h4>
-      <p>{total1+ total2+ total3} </p>
+      <h1>Give feedback</h1>
+    <Button  name='good' handler={goodClickHandler}/> 
+    <Button  name='neutral' handler={neutralClickHandler}/> 
+    <Button  name='bad' handler={badClickHandler}/> 
+    <br/>
+    <Statics name='good' results={good}/>
+    <Statics name='neutral' results={neutral}/>
+    <Statics name='bad' results={bad}/>
+    <Statics name='all' results={all}/>
+    <Statics name='average' results={average}/>
+    <Statics name='positive' results={positive}/>
     </div>
   )
 }
 
 export default App
+
+const Button =(props)=>{
+  return(
+    <>
+    <button onClick={props.handler}>{props.name}</button>
+    </>
+  )
+}
+
+const Statics =(props)=>{
+  return(
+    <>
+      <p>{props.name} {props.results}</p>
+    </>
+  )
+}
