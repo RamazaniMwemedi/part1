@@ -22,27 +22,46 @@ let positive= (good / neutral)*100
 
   return (
     <div>
+      
       <h1>Give feedback</h1>
     <Button  name='good' handler={goodClickHandler}/> 
     <Button  name='neutral' handler={neutralClickHandler}/> 
     <Button  name='bad' handler={badClickHandler}/> 
     <br/>
-    <Statics name='good' results={good}/>
-    <Statics name='neutral' results={neutral}/>
-    <Statics name='bad' results={bad}/>
-    <Statics name='all' results={all}/>
-    <Statics name='average' results={average}/>
-    <Statics name='positive' results={positive}/>
+    <h1>Statics</h1>
+    <Contents good={good} bad={bad} neutral={neutral} all={all} average={average} positive={positive} />
+    
     </div>
   )
 }
 
 export default App
 
+const Contents=(props)=>{
+  if (props.all===0){
+    return(
+      <>
+        <h3>No feedback given</h3>
+      </>
+    )
+  }else{
+
+  return(
+    <>
+  <Statics name='good' results={props.good}/>
+    <Statics name='neutral' results={props.neutral}/>
+    <Statics name='bad' results={props.bad}/>
+    <Statics name='all' results={props.all}/>
+    <Statics name='average' results={props.average}/>
+    <Statics name='positive' results={props.positive} />
+  </>)
+  }
+}
+
 const Button =(props)=>{
   return(
     <>
-    <button onClick={props.handler}>{props.name}</button>
+    <button onClick={props.handler}>{props.name} {props.i}</button>
     </>
   )
 }
